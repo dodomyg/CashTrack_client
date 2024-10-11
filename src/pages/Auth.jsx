@@ -75,9 +75,7 @@ const Auth = () => {
                   </div>
                 </div>
                 <Button
-                  onClick={() => {
-                    
-                  }}
+                  onClick={() => {}}
                   variant="outline"
                   className="w-full"
                   type="button"
