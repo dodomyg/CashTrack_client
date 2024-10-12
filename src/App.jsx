@@ -4,13 +4,15 @@ import Dashboard from "./pages/Dashboard";
 import Overview from "./pages/Overview";
 import AddBill from "./pages/AddBill";
 import Settings from "./pages/Settings";
+import { useContext } from "react";
+import { UserContext } from "./context/UserContext";
 
 const App = () => {
-  const user = true;
+  const { user } = useContext(UserContext);
   return (
     <div>
       <Routes>
-        <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/" />} />
+        <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/overview" />} />
 
         <Route
           path="/"
