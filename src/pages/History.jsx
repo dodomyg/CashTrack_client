@@ -104,31 +104,6 @@ const History = () => {
       lastOrder: "2023-11-25",
       method: "Square Cash",
     },
-    {
-      order: "ORD012",
-      status: "Completed",
-      lastOrder: "2023-12-08",
-      method: "Zelle",
-    },
-    {
-      order: "ORD013",
-      status: "Processing",
-      lastOrder: "2024-01-15",
-      method: "Stripe",
-    },
-    {
-      order: "ORD014",
-      status: "Completed",
-      lastOrder: "2024-02-20",
-      method: "PayPal",
-    },
-    {
-      order: "ORD015",
-      status: "Pending",
-      lastOrder: "2024-03-30",
-      method: "Credit Card",
-    },
-    
   ];
 
   const [filters, setFilters] = useState({
@@ -156,8 +131,22 @@ const History = () => {
   return (
     <div>
       <div className="w-full flex items-center my-5 gap-5">
-        <Input name="search" value={filters.search} onChange={handleFilterChange} type="text" placeholder="Search..." className="w-fit" />
-        <Input type="date" name="date" onChange={handleFilterChange} value={filters.date} placeholder="Filter by date" className="w-fit" />
+        <Input
+          name="search"
+          value={filters.search}
+          onChange={handleFilterChange}
+          type="text"
+          placeholder="Search..."
+          className="w-fit"
+        />
+        <Input
+          type="date"
+          name="date"
+          onChange={handleFilterChange}
+          value={filters.date}
+          placeholder="Filter by date"
+          className="w-fit"
+        />
         <select
           name="status"
           className="w-fit"
