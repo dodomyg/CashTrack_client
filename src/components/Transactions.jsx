@@ -1,3 +1,4 @@
+// eslint-disable-next-line react/prop-types
 const Transactions = ({ name, email, transactionAmt }) => {
   return (
     <div className="  flex flex-wrap justify-between gap-3 ">

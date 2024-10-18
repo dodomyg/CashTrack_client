@@ -2,10 +2,21 @@ import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
+import {
   LayoutGrid,
   CreditCard,
   Settings,
-  Menu,
   Sun,
   Moon,
   ChevronLeft,
@@ -27,6 +38,7 @@ import { auth } from "@/lib/firebase";
 import toast from "react-hot-toast";
 
 // Sidebar Component
+// eslint-disable-next-line react/prop-types
 const Sidebar = ({ isOpen, theme }) => {
   const location = useLocation();
   return (
@@ -129,13 +141,14 @@ const Dashboard = () => {
       case "/settings":
         return "Settings";
       default:
-        return "Dashboard";
+        return "Overview";
     }
   };
 
   return (
     <div className="flex">
       {/* Toggle Button for Sidebar */}
+
       <Button
         variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
@@ -157,7 +170,7 @@ const Dashboard = () => {
       >
         {/* Header Section */}
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <h1 className="text-2xl font-bold">{getPageTitle()}</h1>
           <div className="flex items-center gap-x-4">
             {/* Theme Toggle */}
             <Button variant="ghost" onClick={toggleTheme}>
@@ -177,7 +190,22 @@ const Dashboard = () => {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="px-2">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <AlertDialog>
+                  <AlertDialogTrigger>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Welcome Back to CashTrack {user?.name}
+                      </AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogAction>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogOut}>
                   Logout
