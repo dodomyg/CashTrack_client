@@ -15,12 +15,13 @@ import {
 
 import {
   LayoutGrid,
-  CreditCard,
   Settings,
   Sun,
   Moon,
   ChevronLeft,
   ChevronRight,
+  BadgeIndianRupee,
+  History,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -37,6 +38,12 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import toast from "react-hot-toast";
 
+const sideBarLinks = [
+  { name: "Overview", path: "/overview", icon: <LayoutGrid size={20} /> },
+  { name: "Add Bill", path: "/add-bill", icon: <BadgeIndianRupee size={20} /> },
+  { name: "History", path: "/history", icon: <History size={20} /> },
+  { name: "Settings", path: "/settings", icon: <Settings size={20} /> },
+];
 // Sidebar Component
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ isOpen, theme }) => {
@@ -52,42 +59,20 @@ const Sidebar = ({ isOpen, theme }) => {
       )}
     >
       <ul className="space-y-2 mt-4">
-        <li>
-          <Link
-            to="/overview"
-            className={cn(
-              "flex items-center space-x-2 p-4 rounded-lg transition-colors",
-              theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-300"
-            )}
-          >
-            <LayoutGrid size={20} />
-            {isOpen && <span className="ml-2">Overview</span>}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/add-bill"
-            className={cn(
-              "flex items-center space-x-2 p-4 rounded-lg transition-colors",
-              theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-300"
-            )}
-          >
-            <CreditCard size={20} />
-            {isOpen && <span className="ml-2">Add Bill</span>}
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/settings"
-            className={cn(
-              "flex items-center space-x-2 p-4 rounded-lg transition-colors",
-              theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-300"
-            )}
-          >
-            <Settings size={20} />
-            {isOpen && <span className="ml-2">Settings</span>}
-          </Link>
-        </li>
+        {sideBarLinks?.map((link, i) => (
+          <li key={i}>
+            <Link
+              to={link.path}
+              className={cn(
+                "flex items-center space-x-2 p-4 rounded-lg transition-colors",
+                theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-300"
+              )}
+            >
+              {link.icon}
+              {isOpen && <span className="ml-2">{link.name}</span>}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -138,6 +123,8 @@ const Dashboard = () => {
         return "Overview";
       case "/add-bill":
         return "Add Bill";
+      case "/history":
+        return "History";
       case "/settings":
         return "Settings";
       default:

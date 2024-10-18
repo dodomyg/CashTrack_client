@@ -6,13 +6,17 @@ import AddBill from "./pages/AddBill";
 import Settings from "./pages/Settings";
 import { useContext } from "react";
 import { UserContext } from "./context/UserContext";
+import History from "./pages/History";
 
 const App = () => {
   const { user } = useContext(UserContext);
   return (
     <div>
       <Routes>
-        <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/overview" />} />
+        <Route
+          path="/auth"
+          element={!user ? <Auth /> : <Navigate to="/overview" />}
+        />
 
         <Route
           path="/"
@@ -21,6 +25,7 @@ const App = () => {
           <Route index element={<Overview />} />
           <Route path="overview" element={<Overview />} />
           <Route path="add-bill" element={<AddBill />} />
+          <Route path="history" element={<History />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

@@ -156,7 +156,12 @@ const Auth = () => {
     try {
       const userCreds = await signInWithPopup(auth, new GoogleAuthProvider());
       const user = userCreds.user;
-
+      if (!user) {
+        setLoading(false);
+        setUser(null);
+        toast.error("Failed to log in with Google");
+        return;
+      }
       await db.collection("users").doc(user.uid).set({
         name: user.displayName,
         email: user.email,
@@ -188,6 +193,7 @@ const Auth = () => {
     } catch (error) {
       console.error("Error logging in with Google:", error);
       toast.error("Failed to log in with Google");
+      setLoading(false);
     } finally {
       setLoading(false);
     }
