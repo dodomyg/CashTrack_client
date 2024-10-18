@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 import {
   LayoutGrid,
   Settings,
@@ -49,32 +52,45 @@ const sideBarLinks = [
 const Sidebar = ({ isOpen, theme }) => {
   const location = useLocation();
   return (
-    <div
-      className={cn(
-        theme === "dark"
-          ? "bg-slate-950 text-white"
-          : "bg-slate-200 text-black",
-        "min-h-screen flex flex-col transition-all duration-300 ease-in-out",
-        isOpen ? "w-56" : "w-16"
-      )}
-    >
-      <ul className="space-y-2 mt-4">
-        {sideBarLinks?.map((link, i) => (
-          <li key={i}>
-            <Link
-              to={link.path}
-              className={cn(
-                "flex items-center space-x-2 p-4 rounded-lg transition-colors",
-                theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-300"
-              )}
-            >
-              {link.icon}
-              {isOpen && <span className="ml-2">{link.name}</span>}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <TooltipProvider>
+      <div
+        className={cn(
+          theme === "dark"
+            ? "bg-slate-950 text-white"
+            : "bg-slate-200 text-black",
+          "min-h-screen flex flex-col transition-all duration-300 ease-in-out",
+          isOpen ? "w-56" : "w-16"
+        )}
+      >
+        <ul className="space-y-2 mt-4">
+          {sideBarLinks?.map((link, i) => (
+            <li key={i}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link
+                    to={link.path}
+                    className={cn(
+                      "flex items-center space-x-2 p-4 rounded-lg transition-colors",
+                      theme === "dark"
+                        ? "hover:bg-gray-800"
+                        : "hover:bg-gray-300"
+                    )}
+                  >
+                    {link.icon}
+                    {isOpen && <span className="ml-2">{link.name}</span>}
+                  </Link>
+                </TooltipTrigger>
+                {!isOpen && (
+                  <TooltipContent>
+                    <p>{link.name}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </TooltipProvider>
   );
 };
 
