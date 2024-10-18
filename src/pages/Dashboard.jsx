@@ -50,6 +50,7 @@ const sideBarLinks = [
 // Sidebar Component
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ isOpen, theme }) => {
+  // eslint-disable-next-line no-unused-vars
   const location = useLocation();
   return (
     <TooltipProvider>
