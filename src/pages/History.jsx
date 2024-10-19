@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
 import ExportButton from "@/components/ExportButton";
+import { Button } from "@/components/ui/button";
 
 const History = () => {
   const columns = [
@@ -11,18 +12,18 @@ const History = () => {
       header: "Order",
     },
     {
-      accessorKey: "status",
-      header: "Status",
+      accessorKey: "category",
+      header: "Category",
       cell: ({ row }) => {
         return (
           <div
             className={cn("font-medium w-fit px-4 py-2 rounded-lg", {
-              "bg-red-200": row.getValue("status") === "Pending",
-              "bg-orange-200": row.getValue("status") === "Processing",
-              "bg-green-200": row.getValue("status") === "Completed",
+              "bg-red-200": row.getValue("category") === "Groceries",
+              "bg-orange-200": row.getValue("category") === "Food",
+              "bg-green-200": row.getValue("category") === "Medicine",
             })}
           >
-            {row.getValue("status")}
+            {row.getValue("category")}
           </div>
         );
       },
@@ -40,74 +41,74 @@ const History = () => {
   const data = [
     {
       order: "ORD001",
-      status: "Pending",
+      category: "Groceries",
       lastOrder: "2023-01-15",
       method: "Credit Card",
     },
     {
       order: "ORD002",
-      status: "Processing",
+      category: "Food",
       lastOrder: "2023-02-20",
       method: "PayPal",
     },
     {
       order: "ORD003",
-      status: "Completed",
+      category: "Medicine",
       lastOrder: "2023-03-10",
       method: "Stripe",
     },
     {
       order: "ORD004",
-      status: "Pending",
+      category: "Groceries",
       lastOrder: "2023-04-05",
       method: "Venmo",
     },
     {
       order: "ORD005",
-      status: "Completed",
+      category: "Medicine",
       lastOrder: "2023-05-12",
       method: "Bank Transfer",
     },
     {
       order: "ORD006",
-      status: "Processing",
+      category: "Food",
       lastOrder: "2023-06-18",
       method: "Apple Pay",
     },
     {
       order: "ORD007",
-      status: "Completed",
+      category: "Medicine",
       lastOrder: "2023-07-22",
       method: "Google Pay",
     },
     {
       order: "ORD008",
-      status: "Pending",
+      category: "Groceries",
       lastOrder: "2023-08-30",
       method: "Cryptocurrency",
     },
     {
       order: "ORD009",
-      status: "Processing",
+      category: "Food",
       lastOrder: "2023-09-05",
       method: "Alipay",
     },
     {
       order: "ORD010",
-      status: "Completed",
+      category: "Medicine",
       lastOrder: "2023-10-18",
       method: "WeChat Pay",
     },
     {
       order: "ORD011",
-      status: "Pending",
+      category: "Groceries",
       lastOrder: "2023-11-25",
       method: "Square Cash",
     },
   ];
 
   const [filters, setFilters] = useState({
-    status: "all",
+    category: "all",
     date: "",
     search: "",
   });
@@ -116,22 +117,23 @@ const History = () => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
+
   const filteredData = data.filter((row) => {
     const dataSearch = row.order
       .toLowerCase()
       .includes(filters.search.toLowerCase());
-    const statusMatch =
-      filters.status === "all" || row.status.toLowerCase() === filters.status;
-
+    const categoryMatch =
+      filters.category === "all" ||
+      row.category.toLowerCase() === filters.category.toLowerCase();
     const dateMatch = !filters.date || row.lastOrder === filters.date;
 
-    return statusMatch && dateMatch && dataSearch;
+    return categoryMatch && dateMatch && dataSearch;
   });
 
   const getExportedData = useMemo(() => {
     return filteredData.map((row) => ({
       Order: row.order,
-      Status: row.status,
+      category: row.category,
       LastOrder: row.lastOrder,
       Method: row.method,
     }));
@@ -157,16 +159,18 @@ const History = () => {
           className="w-fit"
         />
         <select
-          name="status"
+          name="category"
           className="w-fit"
-          value={filters.status}
+          value={filters.category}
           onChange={handleFilterChange}
         >
           <option value="all">All</option>
-          <option value="completed">Completed</option>
-          <option value="pending">Pending</option>
-          <option value="processing">Processing</option>
+          <option value="groceries">Groceries</option>
+          <option value="food">Food</option>
+          <option value="medicine">Medicine</option>
         </select>
+
+        <Button disabled={!filteredData.length} onClick={() => setFilters({ category: "all", date: "", search: "" })}>Clear Filter</Button>
 
         <ExportButton filename="orders" data={getExportedData} />
       </div>

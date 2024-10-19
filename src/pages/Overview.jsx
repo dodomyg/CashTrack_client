@@ -1,31 +1,30 @@
 import BarChart from "@/components/BarChart";
 import CardComponent from "@/components/CardComponent";
 import Transactions from "@/components/Transactions";
-import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
-
+import { Activity, CreditCard, IndianRupee, Users } from "lucide-react";
 const Overview = () => {
   const cardData = [
     {
-      label: "Total Revenue",
-      amt: "$45,231.89",
+      label: "Total Expenditure",
+      amt: "₹45,231.89",
       desc: "+20.1% from last month",
-      icon: DollarSign,
+      icon: IndianRupee,
     },
     {
-      label: "Subscriptions",
-      amt: "+2350",
+      label: "Groceries",
+      amt: "₹2350",
       desc: "+180.1% from last month",
       icon: Users,
     },
     {
-      label: "Sales",
-      amt: "+12,234",
+      label: "Rent",
+      amt: "₹12,234",
       desc: "+19% from last month",
       icon: CreditCard,
     },
     {
       label: "Active Now",
-      amt: "+573",
+      amt: "573",
       desc: "+201 since last hour",
       icon: Activity,
     },
@@ -34,28 +33,28 @@ const Overview = () => {
   const transactionData = [
     {
       name: "Olivia Martin",
-      email: "olivia.martin@email.com",
-      transactionAmt: "+$1,999.00",
+      category: "Groceries",
+      transactionAmt: "₹1999.00",
     },
     {
       name: "Jackson Lee",
-      email: "isabella.nguyen@email.com",
-      transactionAmt: "+$1,999.00",
+      category: "Medicine",
+      transactionAmt: "₹1,999.00",
     },
     {
       name: "Isabella Nguyen",
-      email: "isabella.nguyen@email.com",
-      transactionAmt: "+$39.00",
+      category: "Food",
+      transactionAmt: "₹39.00",
     },
     {
       name: "William Kim",
-      email: "will@email.com",
-      transactionAmt: "+$299.00",
+      category: "Groceries",
+      transactionAmt: "₹299.00",
     },
     {
       name: "Sofia Davis",
-      email: "sofia.davis@email.com",
-      transactionAmt: "+$39.00",
+      category: "Food",
+      transactionAmt: "₹39.00",
     },
   ];
 
@@ -96,7 +95,7 @@ const Overview = () => {
             {transactionData.map((d, i) => (
               <Transactions
                 key={i}
-                email={d.email}
+                category={d.category}
                 name={d.name}
                 transactionAmt={d.transactionAmt}
               />

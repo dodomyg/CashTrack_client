@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const Transactions = ({ name, email, transactionAmt }) => {
+const Transactions = ({ name, category, transactionAmt }) => {
   return (
     <div className="  flex flex-wrap justify-between gap-3 ">
       <section className="flex justify-between gap-3 ">
@@ -14,7 +14,7 @@ const Transactions = ({ name, email, transactionAmt }) => {
         <div className="text-sm">
           <p>{name}</p>
           <div className="text-ellipsis overflow-hidden whitespace-nowrap w-[120px]  sm:w-auto  text-gray-400">
-            {email}
+            {category}
           </div>
         </div>
       </section>

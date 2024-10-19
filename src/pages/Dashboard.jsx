@@ -157,7 +157,7 @@ const Dashboard = () => {
         variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed top-3 z-10 p-2 -left-6 transition-transform duration-300",
+          "absolute top-3 z-10 p-2 -left-6 transition-transform duration-300",
           isOpen ? "translate-x-56" : "translate-x-16"
         )}
       >
