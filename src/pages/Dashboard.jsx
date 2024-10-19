@@ -59,7 +59,7 @@ const Sidebar = ({ isOpen, theme }) => {
           theme === "dark"
             ? "bg-slate-950 text-white"
             : "bg-slate-200 text-black",
-          "min-h-screen flex flex-col transition-all duration-300 ease-in-out",
+          "min-h-screen flex flex-col transition-all duration-300 ease-in-out pt-3",
           isOpen ? "w-56" : "w-16"
         )}
       >
@@ -157,7 +157,7 @@ const Dashboard = () => {
         variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed top-4 z-10 p-2 transition-transform duration-300",
+          "fixed top-3 z-10 p-2 -left-6 transition-transform duration-300",
           isOpen ? "translate-x-56" : "translate-x-16"
         )}
       >

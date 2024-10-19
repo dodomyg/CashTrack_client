@@ -1,8 +1,8 @@
 import DataTable from "@/components/DataTable";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import ExportButton from "@/components/ExportButton";
 
 const History = () => {
   const columns = [
@@ -128,6 +128,15 @@ const History = () => {
     return statusMatch && dateMatch && dataSearch;
   });
 
+  const getExportedData = useMemo(() => {
+    return filteredData.map((row) => ({
+      Order: row.order,
+      Status: row.status,
+      LastOrder: row.lastOrder,
+      Method: row.method,
+    }));
+  }, [filteredData]);
+
   return (
     <div>
       <div className="w-full flex items-center my-5 gap-5">
@@ -158,6 +167,8 @@ const History = () => {
           <option value="pending">Pending</option>
           <option value="processing">Processing</option>
         </select>
+
+        <ExportButton filename="orders" data={getExportedData} />
       </div>
       <DataTable columns={columns} data={filteredData} />
     </div>
