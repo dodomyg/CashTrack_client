@@ -23,9 +23,8 @@ const Overview = () => {
       icon: CreditCard,
     },
     {
-      label: "Active Now",
-      amt: "573",
-      desc: "+201 since last hour",
+      label: "Miscellaneous",
+      amt: "₹300",
       icon: Activity,
     },
   ];

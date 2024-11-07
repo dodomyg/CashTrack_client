@@ -45,8 +45,8 @@ const sideBarLinks = [
   { name: "Overview", path: "/overview", icon: <LayoutGrid size={20} /> },
   { name: "Add Bill", path: "/add-bill", icon: <BadgeIndianRupee size={20} /> },
   { name: "History", path: "/history", icon: <History size={20} /> },
-  { name: "Settings", path: "/settings", icon: <Settings size={20} /> },
-];
+  { name: "Demo", path: "/demo", icon: <Settings size={20} /> },
+]
 // Sidebar Component
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ isOpen, theme }) => {
@@ -142,8 +142,8 @@ const Dashboard = () => {
         return "Add Bill";
       case "/history":
         return "History";
-      case "/settings":
-        return "Settings";
+      case "/demo":
+        return "Demo";
       default:
         return "Overview";
     }
