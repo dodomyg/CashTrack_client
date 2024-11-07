@@ -2,7 +2,7 @@
   "name": "lyproject",
   "private": true,
   "version": "0.0.0",
-  "proxy":"http://localhost:5000",
+  "proxy": "http://localhost:5000",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -34,7 +34,8 @@
     "react-router-dom": "^6.26.2",
     "recharts": "^2.13.0",
     "tailwind-merge": "^2.5.3",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
