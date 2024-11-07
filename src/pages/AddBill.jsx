@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "@/context/UserContext";
 import { storage } from "@/lib/firebase";
 import toast from "react-hot-toast";
+import Loader from "@/context/Loader";
 axios.defaults.withCredentials = true;
 
 const AddBill = () => {
@@ -20,6 +21,7 @@ const AddBill = () => {
 
   const { user } = useContext(UserContext);
   const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -27,6 +29,7 @@ const AddBill = () => {
   };
 
   const uploadImageToFirebase = async (e) => {
+    setUploading(true);
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
@@ -36,10 +39,13 @@ const AddBill = () => {
       const downloadURL = await snapshot.ref.getDownloadURL();
       toast.success("File uploaded successfully");
       console.log("File uploaded to Firebase successfully:", downloadURL);
+      setUploading(false);
     } catch (error) {
       console.error("Error uploading file to Firebase:", error);
+      setUploading(false);
     }
 
+    setLoading(true);
     try {
       const resp = await axios.post(
         "http://localhost:5000/upload",
@@ -56,6 +62,7 @@ const AddBill = () => {
       if (resp.status === 200) {
         toast.success("Generating");
         console.log("File uploaded to flask backend:", resp.data);
+        setLoading(true);
       } else {
         toast.error("Something went wrong");
       }
@@ -90,42 +97,49 @@ const AddBill = () => {
     //     </Button>
     //   </CardContent>
     // </Card>
-
-    <div>
-      <form
-        onSubmit={uploadImageToFirebase}
-        className="bg-white shadow-lg rounded-lg p-6 mb-6 w-full max-w-md"
-        encType="multipart/form-data"
-      >
-        <div className="flex flex-col items-center justify-center space-y-4">
-          {file && (
-            <img
-              className="w-full rounded-lg object-cover"
-              src={URL.createObjectURL(file)}
-              alt="Uploaded"
+    loading ? (
+      <div className="flex justify-center items-center">
+        <Loader />
+        <h1>Generating your bill detials...</h1>
+      </div>
+    ) : (
+      <div>
+        <form
+          onSubmit={uploadImageToFirebase}
+          className="bg-white shadow-lg rounded-lg p-6 mb-6 w-full max-w-md"
+          encType="multipart/form-data"
+        >
+          <div className="flex flex-col items-center justify-center space-y-4">
+            {file && (
+              <img
+                className="w-full rounded-lg object-cover"
+                src={URL.createObjectURL(file)}
+                alt="Uploaded"
+              />
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              className="block w-full text-sm text-gray-500
+                     file:mr-4 file:py-2 file:px-4
+                     file:rounded-full file:border-0
+                     file:text-sm file:font-semibold
+                     file:bg-blue-50 file:text-blue-700
+                     hover:file:bg-blue-100
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             />
-          )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleChange}
-            className="block w-full text-sm text-gray-500
-                       file:mr-4 file:py-2 file:px-4
-                       file:rounded-full file:border-0
-                       file:text-sm file:font-semibold
-                       file:bg-blue-50 file:text-blue-700
-                       hover:file:bg-blue-100
-                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full mt-2 hover:bg-blue-600 transition-colors"
-          >
-            Upload Image
-          </button>
-        </div>
-      </form>
-    </div>
+            <button
+              type="submit"
+              loading={uploading}
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full mt-2 hover:bg-blue-600 transition-colors"
+            >
+              {uploading ? "Uploading..." : "Upload"}
+            </button>
+          </div>
+        </form>
+      </div>
+    )
   );
 };
 
