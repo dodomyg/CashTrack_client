@@ -5,13 +5,13 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyBiiMMFE_kYXlbpv4tKhRz3bCjSJk-9mY0",
-  authDomain: "cashtrack-26bd5.firebaseapp.com",
-  projectId: "cashtrack-26bd5",
-  storageBucket: "cashtrack-26bd5.appspot.com",
-  messagingSenderId: "847004724065",
-  appId: "1:847004724065:web:01b07f83568998d6c4f320",
-  measurementId: "G-PPC8Y543XE",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId:process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId:process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId:process.env.MEASUREMENT_ID
 };
 
 // Initialize Firebase

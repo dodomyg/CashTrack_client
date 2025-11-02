@@ -200,170 +200,178 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left side: Image and text */}
-      <div className="w-1/2 bg-slate-950 flex items-center justify-center p-8"></div>
+    <div className="relative min-h-screen flex items-center justify-center">
+      {/* Background Styling */}
+      <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
-      {/* Right side: Login and Register form */}
-      <div className="w-1/2 bg-slate-900 flex items-center justify-center p-8">
+      {/* Auth Content */}
+      <div className="relative bg-slate-900 flex items-center justify-center p-8 z-10 rounded-lg shadow-lg">
         {loading ? (
           <Loader />
         ) : (
-          <Tabs defaultValue="login" className="w-[400px]">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
-            </TabsList>
+          <div className="w-[400px] space-y-4">
+            {/* Page Title */}
+            <h1 className="text-4xl font-bold text-white text-center">
+              CashTrack
+            </h1>
 
-            {/* Login Form */}
-            <TabsContent value="login">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Login</CardTitle>
-                  <CardDescription>
-                    Welcome Back! Please enter your login details.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="space-y-1">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      onChange={(e) =>
-                        setLoginData({ ...loginData, email: e.target.value })
-                      }
-                      value={loginData.email}
-                      id="email"
-                      type="email"
-                      placeholder="JpjZ4@example.com"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      onChange={(e) =>
-                        setLoginData({
-                          ...loginData,
-                          password: e.target.value,
-                        })
-                      }
-                      value={loginData.password}
-                      id="password"
-                      placeholder="Password"
-                      type="password"
-                    />
-                  </div>
-                </CardContent>
-                <CardFooter className="flex flex-col gap-1">
-                  <Button
-                    disabled={loading}
-                    className="w-full"
-                    onClick={handleLogin}
-                  >
-                    {loading ? "Loading..." : "Login"}
-                  </Button>
-                  <div className="relative my-2">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t" />
-                    </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-background px-2 text-muted-foreground">
-                        Or continue with
-                      </span>
-                    </div>
-                  </div>
-                  <Button
-                    onClick={googleLogin}
-                    variant="outline"
-                    className="w-full"
-                    type="button"
-                  >
-                    Continue with Google
-                  </Button>
-                </CardFooter>
-              </Card>
-            </TabsContent>
+            {/* Tabs for Login and Register */}
+            <Tabs defaultValue="login">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="login">Login</TabsTrigger>
+                <TabsTrigger value="register">Register</TabsTrigger>
+              </TabsList>
 
-            {/* Register Form */}
-            <TabsContent value="register">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Register</CardTitle>
-                  <CardDescription>
-                    Welcome to CashTrack! Please enter your details.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="space-y-1">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      onChange={(e) =>
-                        setRegisterData({
-                          ...registerData,
-                          name: e.target.value,
-                        })
-                      }
-                      value={registerData.name}
-                      id="name"
-                      type="text"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      onChange={(e) =>
-                        setRegisterData({
-                          ...registerData,
-                          email: e.target.value,
-                        })
-                      }
-                      value={registerData.email}
-                      id="email"
-                      type="email"
-                      placeholder="you@example.com"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      onChange={(e) =>
-                        setRegisterData({
-                          ...registerData,
-                          password: e.target.value,
-                        })
-                      }
-                      value={registerData.password}
-                      id="password"
-                      type="password"
-                      placeholder="Your password"
-                    />
-                  </div>
-                </CardContent>
-                <CardFooter className="flex flex-col gap-1">
-                  <Button
-                    disabled={loading}
-                    onClick={handleRegister}
-                    className="w-full"
-                  >
-                    {loading ? "Loading..." : "Register"}
-                  </Button>
-                  <div className="relative my-2">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t" />
+              {/* Login Form */}
+              <TabsContent value="login">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Login</CardTitle>
+                    <CardDescription>
+                      Welcome Back! Please enter your login details.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        onChange={(e) =>
+                          setLoginData({ ...loginData, email: e.target.value })
+                        }
+                        value={loginData.email}
+                        id="email"
+                        type="email"
+                        placeholder="JpjZ4@example.com"
+                      />
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-background px-2 text-muted-foreground">
-                        Or continue with
-                      </span>
+                    <div className="space-y-1">
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        onChange={(e) =>
+                          setLoginData({
+                            ...loginData,
+                            password: e.target.value,
+                          })
+                        }
+                        value={loginData.password}
+                        id="password"
+                        placeholder="Password"
+                        type="password"
+                      />
                     </div>
-                  </div>
-                  <Button variant="outline" className="w-full" type="button">
-                    Register with Google
-                  </Button>
-                </CardFooter>
-              </Card>
-            </TabsContent>
-          </Tabs>
+                  </CardContent>
+                  <CardFooter className="flex flex-col gap-1">
+                    <Button
+                      disabled={loading}
+                      className="w-full"
+                      onClick={handleLogin}
+                    >
+                      {loading ? "Loading..." : "Login"}
+                    </Button>
+                    <div className="relative my-2">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">
+                          Or continue with
+                        </span>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={googleLogin}
+                      variant="outline"
+                      className="w-full"
+                      type="button"
+                    >
+                      Continue with Google
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+
+              {/* Register Form */}
+              <TabsContent value="register">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Register</CardTitle>
+                    <CardDescription>
+                      Welcome to CashTrack! Please enter your details.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        onChange={(e) =>
+                          setRegisterData({
+                            ...registerData,
+                            name: e.target.value,
+                          })
+                        }
+                        value={registerData.name}
+                        id="name"
+                        type="text"
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        onChange={(e) =>
+                          setRegisterData({
+                            ...registerData,
+                            email: e.target.value,
+                          })
+                        }
+                        value={registerData.email}
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        onChange={(e) =>
+                          setRegisterData({
+                            ...registerData,
+                            password: e.target.value,
+                          })
+                        }
+                        value={registerData.password}
+                        id="password"
+                        type="password"
+                        placeholder="Your password"
+                      />
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex flex-col gap-1">
+                    <Button
+                      disabled={loading}
+                      onClick={handleRegister}
+                      className="w-full"
+                    >
+                      {loading ? "Loading..." : "Register"}
+                    </Button>
+                    <div className="relative my-2">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-background px-2 text-muted-foreground">
+                          Or continue with
+                        </span>
+                      </div>
+                    </div>
+                    <Button variant="outline" className="w-full" type="button">
+                      Register with Google
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
         )}
       </div>
     </div>

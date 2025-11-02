@@ -16,6 +16,7 @@ const AddBill = () => {
   const [uploading, setUploading] = useState(false);
   const [id, setId] = useState(uuidv4());
   const [loading, setLoading] = useState(false);
+  const [categorizing, setCategoring] = useState(false);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*",
@@ -94,7 +95,7 @@ const AddBill = () => {
             total_price: parseInt(response?.data?.data?.total?.total_price),
             items: items,
             imgUrl: downloadURL || "",
-            date:new Date(),
+            date: new Date(),
           });
 
         toast.success("Bill uploaded successfully");
@@ -110,8 +111,20 @@ const AddBill = () => {
     } catch (error) {
       console.error("Error uploading to backend:", error);
       toast.error("Error uploading to backend");
-    } finally {
       setLoading(false);
+    }
+
+    // setCategoring(true);
+    try {
+      const categoryResp = await axios.post(
+        `http://localhost:5000/category/${id}`
+      );
+      console.log(categoryResp.data);
+      // setCategoring(false);
+      // await db.collection("bill").doc(id).update()
+    } catch (error) {
+      console.log(error);
+      // setCategoring(false);
     }
   };
 
